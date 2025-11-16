@@ -1,145 +1,145 @@
-# Stress Management & Relaxation Training System
+# سیستم مدیریت استرس و آموزش آرام‌سازی
 
-A complete production-grade Python desktop application using PySide6 (Qt for Python) with full RTL Persian UI support.
+یک برنامه دسکتاپ Python کامل و آماده تولید با استفاده از PySide6 (Qt for Python) با پشتیبانی کامل UI فارسی RTL.
 
-## Features
+## ویژگی‌ها
 
-- **Full RTL Persian UI**: Complete right-to-left layout with Persian text loaded from JSON translations
-- **Translation System**: All UI text stored in JSON files - no Persian characters in Python source code
-- **User & Admin Roles**: Separate interfaces for regular users and administrators
-- **Stress Logging**: Daily stress level tracking with notes, sleep hours, and physical activity
-- **Exercise Management**: Breathing exercises, meditation, guided relaxation, and music therapy
-- **Session Tracking**: Track completed exercise sessions
-- **Anxiety Testing**: GAD-7 style anxiety assessment (7 questions, 0-21 score)
-- **Reports & Export**: Export stress logs to CSV format
-- **Admin Panel**: Complete CRUD operations for users, exercises, and anxiety questions
-- **Database Management**: Backup, restore, and export database functionality
+- **UI فارسی RTL کامل**: چیدمان راست‌به‌چپ کامل با متن فارسی که از ترجمه‌های JSON بارگذاری می‌شود
+- **سیستم ترجمه**: تمام متون UI در فایل‌های JSON ذخیره می‌شوند - هیچ کاراکتر فارسی در کد منبع Python وجود ندارد
+- **نقش‌های کاربر و ادمین**: رابط‌های جداگانه برای کاربران عادی و مدیران
+- **ثبت استرس**: ردیابی روزانه سطح استرس با یادداشت‌ها، ساعت خواب و فعالیت بدنی
+- **مدیریت تمرین**: تمرینات تنفسی، مدیتیشن، آرام‌سازی هدایت شده و موسیقی درمانی
+- **ردیابی جلسات**: ردیابی جلسات تمرین تکمیل شده
+- **تست اضطراب**: ارزیابی اضطراب به سبک GAD-7 (7 سؤال، امتیاز 0-21)
+- **گزارش‌ها و خروجی**: خروجی گزارش‌های استرس به فرمت CSV
+- **پنل مدیریت**: عملیات CRUD کامل برای کاربران، تمرینات و سوالات اضطراب
+- **مدیریت پایگاه داده**: عملکرد پشتیبان‌گیری، بازیابی و خروجی پایگاه داده
 
-## Architecture
+## معماری
 
-The application follows a clean layered architecture:
+این برنامه از یک معماری لایه‌ای تمیز پیروی می‌کند:
 
 ```
 /app
-  /ui              # UI Layer (PySide6 widgets)
-  /services        # Business Logic Layer
-  /data            # Data Access Layer (SQLite + Repositories)
-  /config          # Configuration (Translation Manager, Config)
-/translations      # Translation JSON files
-main.py            # User application entry point
-admin_main.py      # Admin application entry point
+  /ui              # لایه UI (ویجت‌های PySide6)
+  /services        # لایه منطق تجاری
+  /data            # لایه دسترسی به داده (SQLite + Repositories)
+  /config          # پیکربندی (Translation Manager, Config)
+/translations      # فایل‌های ترجمه JSON
+main.py            # نقطه ورود برنامه کاربر
+admin_main.py      # نقطه ورود برنامه ادمین
 ```
 
-## Translation System
+## سیستم ترجمه
 
-All UI text is stored in `/translations/fa.json`. The application uses a `TranslationManager` class to load and retrieve translated strings.
+تمام متون UI در `/translations/fa.json` ذخیره می‌شوند. برنامه از کلاس `TranslationManager` برای بارگذاری و بازیابی رشته‌های ترجمه شده استفاده می‌کند.
 
-**Key Features:**
+**ویژگی‌های کلیدی:**
 
-- All Persian text in JSON files only
-- Zero Persian characters in Python source code
-- Easy language switching support
-- Type-safe translation key lookup
+- تمام متن فارسی فقط در فایل‌های JSON
+- صفر کاراکتر فارسی در کد منبع Python
+- پشتیبانی آسان از تعویض زبان
+- جستجوی کلید ترجمه با امنیت نوع
 
-**Usage in code:**
+**استفاده در کد:**
 
 ```python
 from app.config.translation_manager import TranslationManager
 
 tm = TranslationManager()
-label.setText(tm.t("login"))  # Returns Persian text from JSON
+label.setText(tm.t("login"))  # متن فارسی را از JSON برمی‌گرداند
 ```
 
-## Installation
+## نصب
 
-1. **Install dependencies:**
+1. **نصب وابستگی‌ها:**
 
    ```bash
    pip install -r requirements.txt
    ```
 
-2. **Run user application:**
+2. **اجرای برنامه کاربر:**
 
    ```bash
    python main.py
    ```
 
-3. **Run admin panel:**
+3. **اجرای پنل مدیریت:**
    ```bash
    python admin_main.py
    ```
 
-## Default Credentials
+## اعتبارنامه‌های پیش‌فرض
 
-**Admin Account:**
+**حساب ادمین:**
 
-- Username: `admin`
-- Password: `admin123`
+- نام کاربری: `admin`
+- رمز عبور: `admin123`
 
-_Note: Change the default admin password after first login for security._
+_توجه: برای امنیت، رمز عبور پیش‌فرض ادمین را پس از اولین ورود تغییر دهید._
 
-## Database
+## پایگاه داده
 
-The application uses SQLite database stored in `/data/stress_management.db`. The database schema is automatically created on first run.
+این برنامه از پایگاه داده SQLite استفاده می‌کند که در `/data/stress_management.db` ذخیره می‌شود. طرح پایگاه داده به صورت خودکار در اولین اجرا ایجاد می‌شود.
 
-**Tables:**
+**جداول:**
 
-- `users`: User accounts and authentication
-- `stress_logs`: Daily stress level entries
-- `exercises`: Available exercises
-- `sessions`: Exercise session history
-- `anxiety_tests`: GAD-7 test results
-- `anxiety_questions`: Anxiety test questions (manageable by admin)
+- `users`: حساب‌های کاربری و احراز هویت
+- `stress_logs`: ورودی‌های روزانه سطح استرس
+- `exercises`: تمرینات موجود
+- `sessions`: تاریخچه جلسات تمرین
+- `anxiety_tests`: نتایج تست GAD-7
+- `anxiety_questions`: سوالات تست اضطراب (قابل مدیریت توسط ادمین)
 
-## RTL Support
+## پشتیبانی RTL
 
-The application is fully RTL (Right-To-Left) compatible:
+این برنامه کاملاً با RTL (راست‌به‌چپ) سازگار است:
 
-- All widgets use `Qt.RightToLeft` layout direction
-- Form labels appear on the right side
-- Table headers and content are RTL
-- Persian font support (Vazir/IRANSans with fallback)
+- تمام ویجت‌ها از جهت چیدمان `Qt.RightToLeft` استفاده می‌کنند
+- برچسب‌های فرم در سمت راست ظاهر می‌شوند
+- سربرگ‌ها و محتوای جدول RTL هستند
+- پشتیبانی فونت فارسی (Vazir/IRANSans با fallback)
 
-## Windows Native Styling
+## استایل بومی Windows
 
-The application uses Windows native "windowsvista" style for a native look and feel on Windows.
+این برنامه از استایل بومی "windowsvista" Windows برای ظاهر و احساس بومی در Windows استفاده می‌کند.
 
-## Code Quality
+## کیفیت کد
 
-- **English-only code**: All Python source code is in English
-- **Type hints**: Full type annotations throughout
-- **Docstrings**: Comprehensive documentation
-- **PEP8 compliant**: Follows Python style guidelines
-- **Logging**: Rotating file logs for debugging
-- **Error handling**: User-friendly error messages (translated)
+- **کد فقط انگلیسی**: تمام کد منبع Python به انگلیسی است
+- **نوع‌های اشاره‌ای**: حاشیه‌نویسی‌های کامل نوع در سراسر
+- **Docstrings**: مستندات جامع
+- **مطابق PEP8**: از دستورالعمل‌های سبک Python پیروی می‌کند
+- **لاگ‌گیری**: لاگ‌های چرخشی فایل برای اشکال‌زدایی
+- **مدیریت خطا**: پیام‌های خطای کاربرپسند (ترجمه شده)
 
-## Admin Panel Features
+## ویژگی‌های پنل مدیریت
 
-The admin panel provides:
+پنل مدیریت ارائه می‌دهد:
 
-- **User Management**: Create, edit, delete users; reset passwords; enable/disable accounts
-- **Exercise Management**: CRUD operations for exercises
-- **Anxiety Questions Management**: Manage GAD-7 questions
-- **Table Viewers**: Browse all database tables
-- **Database Operations**: Backup, restore, and export database
+- **مدیریت کاربر**: ایجاد، ویرایش، حذف کاربران؛ بازنشانی رمز عبور؛ فعال/غیرفعال کردن حساب‌ها
+- **مدیریت تمرین**: عملیات CRUD برای تمرینات
+- **مدیریت سوالات اضطراب**: مدیریت سوالات GAD-7
+- **مشاهده‌کنندگان جدول**: مرور تمام جداول پایگاه داده
+- **عملیات پایگاه داده**: پشتیبان‌گیری، بازیابی و خروجی پایگاه داده
 
-## Development
+## توسعه
 
-### Adding New Translations
+### افزودن ترجمه‌های جدید
 
-1. Add new key-value pairs to `/translations/fa.json`
-2. Use the key in code: `tm.t("your_new_key")`
+1. جفت‌های کلید-مقدار جدید را به `/translations/fa.json` اضافه کنید
+2. کلید را در کد استفاده کنید: `tm.t("your_new_key")`
 
-### Adding New Screens
+### افزودن صفحه‌های جدید
 
-1. Create screen widget in `/app/ui/screens/`
-2. Add to `MainWindow._create_screens()`
-3. Add navigation button in sidebar
+1. ویجت صفحه را در `/app/ui/screens/` ایجاد کنید
+2. به `MainWindow._create_screens()` اضافه کنید
+3. دکمه ناوبری را در نوار کناری اضافه کنید
 
-## License
+## مجوز
 
-This project is provided as-is for educational and development purposes.
+این پروژه همان‌طور که هست برای اهداف آموزشی و توسعه ارائه می‌شود.
 
-## Support
+## پشتیبانی
 
-For issues or questions, please refer to the code documentation and inline comments.
+برای مشکلات یا سوالات، لطفاً به مستندات کد و نظرات درون خطی مراجعه کنید.
