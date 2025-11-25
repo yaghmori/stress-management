@@ -142,3 +142,35 @@
 2025-11-17 00:32:11,441 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
 2025-11-17 00:32:11,441 - app.data.database - INFO - Database schema created successfully
 2025-11-17 00:32:15,524 - app.services.user_service - INFO - User authenticated: ehsan
+2025-11-25 21:04:54,372 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
+2025-11-25 21:04:54,375 - app.data.database - INFO - Database schema created successfully
+2025-11-25 21:05:02,585 - app.services.user_service - INFO - User authenticated: test
+2025-11-25 21:07:30,874 - app.data.repositories.stress_repository - INFO - Stress log created: User 3, Level 10
+2025-11-25 21:15:42,253 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
+2025-11-25 21:15:42,253 - app.data.database - INFO - Database schema created successfully
+2025-11-25 21:15:47,688 - app.services.user_service - INFO - User authenticated: test
+2025-11-25 21:16:03,490 - app.services.pdf_service - INFO - PDF report exported successfully to: C:\Users\yaghmori\Desktop\ttt.pdf
+2025-11-25 21:20:13,920 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
+2025-11-25 21:20:13,921 - app.data.database - INFO - Database schema created successfully
+2025-11-25 21:20:17,323 - app.services.user_service - INFO - User authenticated: test
+2025-11-25 21:20:28,411 - app.services.pdf_service - INFO - PDF report exported successfully to: C:\Users\yaghmori\Desktop\ttt.pdf
+2025-11-25 21:21:17,065 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
+2025-11-25 21:21:17,065 - app.data.database - INFO - Database schema created successfully
+2025-11-25 21:21:21,341 - app.services.user_service - INFO - User authenticated: test
+2025-11-25 21:21:54,773 - app.data.repositories.session_repository - INFO - Session created: User 3, Exercise 1
+2025-11-25 21:22:34,466 - app.data.repositories.session_repository - INFO - Session created: User 3, Exercise 1
+2025-11-25 21:22:51,734 - app.data.repositories.stress_repository - INFO - Stress log created: User 3, Level 2
+2025-11-25 21:23:43,000 - app.data.repositories.anxiety_repository - INFO - Test result created: User 3, Test PSS10, Score 13
+2025-11-25 21:25:55,507 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
+2025-11-25 21:25:55,508 - app.data.database - INFO - Database schema created successfully
+2025-11-25 21:25:58,450 - app.services.user_service - INFO - User authenticated: test
+2025-11-25 21:26:28,346 - app.services.excel_service - INFO - Excel report exported successfully to: C:\Users\yaghmori\Desktop\test.xlsx
+2025-11-25 21:26:49,946 - app.services.pdf_service - INFO - PDF report exported successfully to: C:\Users\yaghmori\Desktop\test.pdf
+2025-11-25 21:28:49,434 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
+2025-11-25 21:28:49,436 - app.data.database - INFO - Database schema created successfully
+2025-11-25 21:28:52,182 - app.services.user_service - INFO - User authenticated: test
+2025-11-25 21:29:02,327 - app.services.excel_service - INFO - Excel report exported successfully to: C:\Users\yaghmori\Desktop\test.xlsx
+2025-11-25 21:31:29,164 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
+2025-11-25 21:31:29,165 - app.data.database - INFO - Database schema created successfully
+2025-11-25 21:31:32,474 - app.services.user_service - INFO - User authenticated: test
+2025-11-25 21:31:42,674 - app.services.excel_service - INFO - Excel report exported successfully to: C:\Users\yaghmori\Desktop\test.xlsx

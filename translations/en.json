@@ -131,6 +131,7 @@
   "anxiety_q7": "Fear of something bad happening",
   
   "reports_export_csv": "Export CSV",
+  "reports_export_excel": "Export Excel",
   "reports_export_pdf": "Export PDF",
   "reports_date_from": "From Date",
   "reports_date_to": "To Date",

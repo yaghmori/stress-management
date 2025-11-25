@@ -131,6 +131,7 @@
   "anxiety_q7": "ترس از اتفاق افتادن چیزی وحشتناک",
   
   "reports_export_csv": "تولید فایل CSV",
+  "reports_export_excel": "تولید فایل Excel",
   "reports_export_pdf": "تولید فایل PDF",
   "reports_date_from": "از تاریخ",
   "reports_date_to": "تا تاریخ",

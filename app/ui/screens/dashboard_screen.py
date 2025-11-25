@@ -4,7 +4,7 @@ Dashboard screen showing overview and statistics.
 
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QGridLayout,
-    QGroupBox, QProgressBar, QTableWidget, QTableWidgetItem,
+    QGroupBox, QTableWidget, QTableWidgetItem,
     QListWidget, QListWidgetItem
 )
 from PySide6.QtCore import Qt
@@ -125,21 +125,6 @@ class DashboardScreen(QWidget):
         
         main_layout.addLayout(analysis_layout)
         
-        # Progress Section
-        progress_group = QGroupBox(self.t("progress_overview"))
-        progress_layout = QVBoxLayout()
-        
-        # Exercise completion rate
-        self.exercise_progress_label = QLabel()
-        progress_layout.addWidget(self.exercise_progress_label)
-        
-        self.exercise_progress_bar = QProgressBar()
-        self.exercise_progress_bar.setRange(0, 100)
-        progress_layout.addWidget(self.exercise_progress_bar)
-        
-        progress_group.setLayout(progress_layout)
-        main_layout.addWidget(progress_group)
-        
         # Recent Activity Section
         recent_group = QGroupBox(self.t("recent_activity"))
         recent_layout = QVBoxLayout()
@@ -190,9 +175,6 @@ class DashboardScreen(QWidget):
         # Anxiety test results
         if self.anxiety_service:
             self._update_anxiety_results(user_id)
-        
-        # Exercise progress
-        self._update_exercise_progress(sessions)
         
         # Recent activity
         self._update_recent_activity(user_id)
@@ -280,22 +262,6 @@ class DashboardScreen(QWidget):
             interpretation = result.get('interpretation', '')
             interpretation_item = QTableWidgetItem(interpretation)
             self.anxiety_results_table.setItem(row, 2, interpretation_item)
-    
-    def _update_exercise_progress(self, sessions: list) -> None:
-        """Update exercise progress display."""
-        if not sessions:
-            self.exercise_progress_label.setText(f"{self.t('completed_exercises')}: 0/0 (0%)")
-            self.exercise_progress_bar.setValue(0)
-            return
-        
-        total = len(sessions)
-        completed = sum(1 for s in sessions if s.get('completion_status') == 'completed')
-        percentage = min(100, int((completed / total * 100))) if total > 0 else 0
-        
-        self.exercise_progress_label.setText(
-            f"{self.t('completed_exercises')}: {completed}/{total} ({percentage}%)"
-        )
-        self.exercise_progress_bar.setValue(percentage)
     
     def _update_recent_activity(self, user_id: int) -> None:
         """Update recent activity list."""

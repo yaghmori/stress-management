@@ -5,16 +5,17 @@ Stress log screen with log cards and history table.
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton,
     QScrollArea, QFrame, QTableView, QHeaderView, QMessageBox,
-    QDialog, QFormLayout, QSpinBox, QTextEdit, QDoubleSpinBox, QDateEdit,
+    QDialog, QFormLayout, QSpinBox, QTextEdit, QDoubleSpinBox,
     QGridLayout
 )
-from PySide6.QtCore import Qt, QAbstractTableModel, QModelIndex, QDate
+from PySide6.QtCore import Qt, QAbstractTableModel, QModelIndex
 from PySide6.QtGui import QFont
 from typing import List, Dict, Any
 
 from app.config.translation_manager import TranslationManager
 from app.config.date_utils import format_date_for_display
 from app.config.config import STRESS_LEVEL_MIN, STRESS_LEVEL_MAX
+from app.ui.widgets.persian_date_edit import PersianDateEdit
 
 
 class StressLogCard(QFrame):
@@ -122,9 +123,7 @@ class StressLogDialog(QDialog):
         form_layout.setLabelAlignment(Qt.AlignRight)
         
         # Date
-        self.date_input = QDateEdit()
-        self.date_input.setDate(QDate.currentDate())
-        self.date_input.setCalendarPopup(True)
+        self.date_input = PersianDateEdit()
         form_layout.addRow(self.t("date") + ":", self.date_input)
         
         # Stress level
@@ -176,7 +175,7 @@ class StressLogDialog(QDialog):
     def get_data(self) -> dict:
         """Get form data."""
         return {
-            'date': self.date_input.date().toPython(),
+            'date': self.date_input.getGregorianDate(),  # Convert to Gregorian for database
             'stress_level': self.stress_level_input.value(),
             'sleep_hours': self.sleep_hours_input.value() if self.sleep_hours_input.value() > 0 else None,
             'physical_activity': self.physical_activity_input.value() if self.physical_activity_input.value() > 0 else None,
