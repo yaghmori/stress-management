@@ -22,3 +22,6 @@ PermissionError: [Errno 13] Permission denied: 'C:\\Users\\yaghmori\\Desktop\\tt
 2025-11-29 19:10:49,251 - app.data.database - INFO - Database schema created successfully
 2025-11-29 19:10:53,732 - app.services.user_service - INFO - User authenticated: test
 2025-11-29 19:11:03,095 - app.services.pdf_service - INFO - Combined PDF report exported successfully to: C:\Users\yaghmori\Desktop\ttt.pdf
+2025-11-29 19:15:36,471 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
+2025-11-29 19:15:36,472 - app.data.database - INFO - Database schema created successfully
+2025-11-29 19:15:43,167 - app.services.user_service - INFO - User authenticated: test
