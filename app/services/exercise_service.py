@@ -85,6 +85,18 @@ class ExerciseService:
         """
         return self.repository.get_all(include_inactive, exercise_type)
     
+    def get_distinct_exercise_types(self, include_inactive: bool = False) -> List[str]:
+        """
+        Get distinct exercise types from database.
+        
+        Args:
+            include_inactive: Include inactive exercises
+            
+        Returns:
+            List of distinct exercise type strings
+        """
+        return self.repository.get_distinct_types(include_inactive)
+    
     def update_exercise(self, exercise_id: int, **kwargs) -> bool:
         """
         Update exercise data.

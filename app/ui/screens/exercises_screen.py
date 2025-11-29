@@ -13,12 +13,6 @@ from typing import List, Dict, Any
 
 from app.config.translation_manager import TranslationManager
 from app.config.date_utils import format_date_for_display
-from app.config.config import (
-    EXERCISE_TYPE_BREATHING,
-    EXERCISE_TYPE_MEDITATION,
-    EXERCISE_TYPE_GUIDED_RELAXATION,
-    EXERCISE_TYPE_MUSIC_THERAPY
-)
 from app.ui.screens.exercise_timer_dialog import ExerciseTimerDialog
 
 
@@ -35,25 +29,25 @@ class ExerciseCard(QFrame):
         
         self._init_ui()
     
-    def _get_exercise_type_text(self, exercise_type: str) -> str:
-        """Get translated exercise type text."""
+    def _get_exercise_type_translation_key(self, exercise_type: str) -> str:
+        """Get translation key for exercise type."""
         # Map exercise types to translation keys
         type_map = {
-            EXERCISE_TYPE_BREATHING: "exercise_type_breathing",
-            EXERCISE_TYPE_MEDITATION: "exercise_type_meditation",
-            EXERCISE_TYPE_GUIDED_RELAXATION: "exercise_type_guided_relaxation",
-            EXERCISE_TYPE_MUSIC_THERAPY: "exercise_type_music_therapy",
             "breathing": "exercise_type_breathing",
             "meditation": "exercise_type_meditation",
             "guided_relaxation": "exercise_type_guided_relaxation",
             "music_therapy": "exercise_type_music_therapy",
-            "relaxation": "exercise_type_guided_relaxation",
+            "relaxation": "exercise_type_guided_relaxation",  # Legacy support
             "journaling": "exercise_type_journaling",
             "activity": "exercise_type_activity",
             "stretching": "exercise_type_stretching"
         }
         
-        translation_key = type_map.get(exercise_type, exercise_type)
+        return type_map.get(exercise_type, f"exercise_type_{exercise_type}")
+    
+    def _get_exercise_type_text(self, exercise_type: str) -> str:
+        """Get translated exercise type text."""
+        translation_key = self._get_exercise_type_translation_key(exercise_type)
         translated = self.t(translation_key)
         
         # If translation key not found, return the type as-is
@@ -73,8 +67,7 @@ class ExerciseCard(QFrame):
                 margin: 5px;
             }
             QFrame:hover {
-                border: 1px solid #3498db;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                border: 2px solid #3498db;
             }
         """)
         
@@ -264,10 +257,7 @@ class ExercisesScreen(QWidget):
         
         self.filter_combo = QComboBox()
         self.filter_combo.setMinimumWidth(150)
-        self.filter_combo.addItem(self.t("all"), None)
-        self.filter_combo.addItem(self.t("exercise_type_breathing"), EXERCISE_TYPE_BREATHING)
-        self.filter_combo.addItem(self.t("exercise_type_meditation"), EXERCISE_TYPE_MEDITATION)
-        self.filter_combo.addItem(self.t("exercise_type_guided_relaxation"), EXERCISE_TYPE_GUIDED_RELAXATION)
+        self._populate_filter()
         self.filter_combo.currentIndexChanged.connect(self.refresh)
         header_layout.addWidget(self.filter_combo)
         
@@ -363,8 +353,79 @@ class ExercisesScreen(QWidget):
         self.setLayoutDirection(Qt.RightToLeft)
         self.setStyleSheet("background-color: #f8f9fa;")
     
+    def _get_exercise_type_translation_key(self, exercise_type: str) -> str:
+        """Get translation key for exercise type."""
+        # Map exercise types to translation keys
+        type_map = {
+            "breathing": "exercise_type_breathing",
+            "meditation": "exercise_type_meditation",
+            "guided_relaxation": "exercise_type_guided_relaxation",
+            "music_therapy": "exercise_type_music_therapy",
+            "relaxation": "exercise_type_guided_relaxation",  # Legacy support
+            "journaling": "exercise_type_journaling",
+            "activity": "exercise_type_activity",
+            "stretching": "exercise_type_stretching",
+            "ehsan": "exercise_type_ehsan"
+        }
+        
+        return type_map.get(exercise_type, f"exercise_type_{exercise_type}")
+    
+    def _populate_filter(self, preserve_selection: bool = False) -> None:
+        """
+        Populate filter combo box with distinct exercise types from database.
+        
+        Args:
+            preserve_selection: If True, try to preserve the current filter selection
+        """
+        # Store current selection if preserving
+        current_data = None
+        if preserve_selection and self.filter_combo.count() > 0:
+            current_data = self.filter_combo.currentData()
+        
+        # Temporarily disconnect signal to avoid triggering refresh during population
+        self.filter_combo.currentIndexChanged.disconnect()
+        
+        self.filter_combo.clear()
+        
+        # Add "All" option
+        self.filter_combo.addItem(self.t("all"), None)
+        
+        # Get distinct exercise types from database dynamically
+        distinct_types = self.exercise_service.get_distinct_exercise_types(include_inactive=False)
+        
+        # Add each distinct type with proper translation
+        for exercise_type in sorted(distinct_types):
+            translation_key = self._get_exercise_type_translation_key(exercise_type)
+            translated_text = self.t(translation_key)
+            
+            # If translation not found, use formatted type name
+            if translated_text == translation_key:
+                translated_text = exercise_type.replace("_", " ").title()
+            
+            self.filter_combo.addItem(translated_text, exercise_type)
+        
+        # Restore previous selection if preserving
+        if preserve_selection and current_data is not None:
+            # Find the index with matching data
+            for i in range(self.filter_combo.count()):
+                if self.filter_combo.itemData(i) == current_data:
+                    self.filter_combo.setCurrentIndex(i)
+                    break
+            else:
+                # If previous selection not found, default to "All"
+                self.filter_combo.setCurrentIndex(0)
+        else:
+            # Default to "All" if not preserving
+            self.filter_combo.setCurrentIndex(0)
+        
+        # Reconnect signal
+        self.filter_combo.currentIndexChanged.connect(self.refresh)
+    
     def refresh(self) -> None:
         """Refresh exercises and sessions."""
+        # Refresh filter to get any new exercise types (preserve current selection)
+        self._populate_filter(preserve_selection=True)
+        
         # Refresh exercise cards
         self._refresh_cards()
         

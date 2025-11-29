@@ -96,6 +96,30 @@ class ExerciseRepository:
         cursor.execute(query, params)
         return [dict(row) for row in cursor.fetchall()]
     
+    def get_distinct_types(self, include_inactive: bool = False) -> List[str]:
+        """
+        Get distinct exercise types from database.
+        
+        Args:
+            include_inactive: Include inactive exercises
+            
+        Returns:
+            List of distinct exercise type strings
+        """
+        conn = self.db.get_connection()
+        cursor = conn.cursor()
+        
+        query = "SELECT DISTINCT type FROM exercises WHERE 1=1"
+        params = []
+        
+        if not include_inactive:
+            query += " AND is_active = 1"
+        
+        query += " ORDER BY type ASC"
+        
+        cursor.execute(query, params)
+        return [row[0] for row in cursor.fetchall() if row[0]]
+    
     def update(self, exercise_id: int, **kwargs) -> bool:
         """
         Update exercise data.

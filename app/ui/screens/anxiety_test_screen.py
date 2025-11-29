@@ -40,8 +40,7 @@ class AnxietyTestCard(QFrame):
                 margin: 5px;
             }
             QFrame:hover {
-                border: 1px solid #3498db;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                border: 2px solid #3498db;
             }
         """)
         
