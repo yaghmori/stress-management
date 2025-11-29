@@ -3,6 +3,7 @@ Anxiety test service for business logic.
 """
 
 from typing import List, Optional, Dict, Any
+from datetime import date
 import logging
 import json
 
@@ -162,9 +163,22 @@ class AnxietyTestService:
         """Get test result by ID."""
         return self.repository.get_result_by_id(result_id)
     
-    def get_user_results(self, user_id: int, limit: Optional[int] = None) -> List[Dict[str, Any]]:
-        """Get test results for a user."""
-        return self.repository.get_results_by_user(user_id, limit)
+    def get_user_results(self, user_id: int, limit: Optional[int] = None,
+                        start_date: Optional[date] = None,
+                        end_date: Optional[date] = None) -> List[Dict[str, Any]]:
+        """
+        Get test results for a user.
+        
+        Args:
+            user_id: User ID
+            limit: Maximum number of records
+            start_date: Start date filter
+            end_date: End date filter
+            
+        Returns:
+            List of test result dicts
+        """
+        return self.repository.get_results_by_user(user_id, limit, start_date, end_date)
     
     def get_all_results(self, limit: Optional[int] = None) -> List[Dict[str, Any]]:
         """Get all test results."""

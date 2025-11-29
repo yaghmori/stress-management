@@ -24,7 +24,7 @@ class ReportsScreen(QWidget):
     """Reports and export screen."""
     
     def __init__(self, user: dict, translation_manager: TranslationManager,
-                 stress_service) -> None:
+                 stress_service, anxiety_service) -> None:
         """
         Initialize reports screen.
         
@@ -32,12 +32,14 @@ class ReportsScreen(QWidget):
             user: User data
             translation_manager: Translation manager
             stress_service: Stress service instance
+            anxiety_service: Anxiety test service instance
         """
         super().__init__()
         self.user = user
         self.translation_manager = translation_manager
         self.t = translation_manager.t
         self.stress_service = stress_service
+        self.anxiety_service = anxiety_service
         
         self._init_ui()
     
@@ -112,7 +114,13 @@ class ReportsScreen(QWidget):
         date_from = self.date_from_input.getGregorianDate()
         date_to = self.date_to_input.getGregorianDate()
         
-        logs = self.stress_service.get_user_logs(
+        stress_logs = self.stress_service.get_user_logs(
+            self.user['id'],
+            start_date=date_from,
+            end_date=date_to
+        )
+        
+        anxiety_results = self.anxiety_service.get_user_results(
             self.user['id'],
             start_date=date_from,
             end_date=date_to
@@ -122,6 +130,9 @@ class ReportsScreen(QWidget):
             # Use UTF-8 with BOM for Excel compatibility
             with open(file_path, 'w', newline='', encoding='utf-8-sig') as f:
                 writer = csv.writer(f)
+                
+                # Write stress logs section
+                writer.writerow([self.t("stress_history")])
                 writer.writerow([
                     self.t("date"),
                     self.t("stress_level"),
@@ -130,13 +141,37 @@ class ReportsScreen(QWidget):
                     self.t("notes")
                 ])
                 
-                for log in logs:
+                for log in stress_logs:
                     writer.writerow([
                         format_date_for_display(log.get('date', '')),
                         str(log.get('stress_level', '')),
                         str(log.get('sleep_hours', '')) if log.get('sleep_hours') else '',
                         str(log.get('physical_activity', '')) if log.get('physical_activity') else '',
                         str(log.get('notes', '')) if log.get('notes') else ''
+                    ])
+                
+                # Empty row separator
+                writer.writerow([])
+                
+                # Write anxiety results section
+                writer.writerow([self.t("anxiety_history")])
+                writer.writerow([
+                    self.t("date"),
+                    self.t("test_name"),
+                    self.t("score"),
+                    self.t("max_score"),
+                    self.t("percentage"),
+                    self.t("interpretation")
+                ])
+                
+                for result in anxiety_results:
+                    writer.writerow([
+                        format_date_for_display(result.get('date', '')),
+                        str(result.get('test_name', '')),
+                        str(result.get('score', '')),
+                        str(result.get('max_score', '')),
+                        f"{result.get('percentage', 0):.2f}%",
+                        str(result.get('interpretation', '')) if result.get('interpretation') else ''
                     ])
             
             QMessageBox.information(
@@ -170,7 +205,13 @@ class ReportsScreen(QWidget):
         date_from = self.date_from_input.getGregorianDate()
         date_to = self.date_to_input.getGregorianDate()
         
-        logs = self.stress_service.get_user_logs(
+        stress_logs = self.stress_service.get_user_logs(
+            self.user['id'],
+            start_date=date_from,
+            end_date=date_to
+        )
+        
+        anxiety_results = self.anxiety_service.get_user_results(
             self.user['id'],
             start_date=date_from,
             end_date=date_to
@@ -181,10 +222,11 @@ class ReportsScreen(QWidget):
             pdf_service = PDFService(self.translation_manager)
             
             # Export to PDF
-            success = pdf_service.export_stress_report(
+            success = pdf_service.export_combined_report(
                 Path(file_path),
                 self.user,
-                logs,
+                stress_logs,
+                anxiety_results,
                 date_from,
                 date_to
             )
@@ -233,7 +275,13 @@ class ReportsScreen(QWidget):
         date_from = self.date_from_input.getGregorianDate()
         date_to = self.date_to_input.getGregorianDate()
         
-        logs = self.stress_service.get_user_logs(
+        stress_logs = self.stress_service.get_user_logs(
+            self.user['id'],
+            start_date=date_from,
+            end_date=date_to
+        )
+        
+        anxiety_results = self.anxiety_service.get_user_results(
             self.user['id'],
             start_date=date_from,
             end_date=date_to
@@ -244,10 +292,11 @@ class ReportsScreen(QWidget):
             excel_service = ExcelService(self.translation_manager)
             
             # Export to Excel
-            success = excel_service.export_stress_report(
+            success = excel_service.export_combined_report(
                 Path(file_path),
                 self.user,
-                logs,
+                stress_logs,
+                anxiety_results,
                 date_from,
                 date_to
             )

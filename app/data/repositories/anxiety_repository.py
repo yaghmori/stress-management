@@ -5,7 +5,7 @@ Anxiety test repository for database operations.
 import sqlite3
 import json
 from typing import List, Optional, Dict, Any
-from datetime import datetime
+from datetime import datetime, date
 import logging
 
 from app.data.database import get_database
@@ -109,16 +109,41 @@ class AnxietyRepository:
             return result
         return None
     
-    def get_results_by_user(self, user_id: int, limit: Optional[int] = None) -> List[Dict[str, Any]]:
-        """Get test results for a user."""
+    def get_results_by_user(self, user_id: int, limit: Optional[int] = None,
+                           start_date: Optional[date] = None,
+                           end_date: Optional[date] = None) -> List[Dict[str, Any]]:
+        """
+        Get test results for a user.
+        
+        Args:
+            user_id: User ID
+            limit: Maximum number of records
+            start_date: Start date filter
+            end_date: End date filter
+            
+        Returns:
+            List of test result dicts
+        """
         conn = self.db.get_connection()
         cursor = conn.cursor()
-        query = "SELECT * FROM anxiety_test_results WHERE user_id = ? ORDER BY created_at DESC"
+        query = "SELECT * FROM anxiety_test_results WHERE user_id = ?"
+        params = [user_id]
+        
+        if start_date:
+            query += " AND date >= ?"
+            params.append(start_date.strftime("%Y-%m-%d"))
+        
+        if end_date:
+            query += " AND date <= ?"
+            params.append(end_date.strftime("%Y-%m-%d"))
+        
+        query += " ORDER BY date DESC, created_at DESC"
+        
         if limit:
             query += " LIMIT ?"
-            cursor.execute(query, (user_id, limit))
-        else:
-            cursor.execute(query, (user_id,))
+            params.append(limit)
+        
+        cursor.execute(query, params)
         
         results = []
         for row in cursor.fetchall():

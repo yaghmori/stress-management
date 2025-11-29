@@ -308,4 +308,318 @@ class ExcelService:
         except Exception as e:
             logger.error(f"Error exporting Excel report: {e}", exc_info=True)
             return False
+    
+    def export_combined_report(self, file_path: Path, user: Dict[str, Any],
+                               stress_logs: List[Dict[str, Any]],
+                               anxiety_results: List[Dict[str, Any]],
+                               start_date: date, end_date: date) -> bool:
+        """
+        Export combined stress and anxiety reports to Excel with RTL support.
+        
+        Args:
+            file_path: Path to save Excel file
+            user: User data dictionary
+            stress_logs: List of stress log entries
+            anxiety_results: List of anxiety test results
+            start_date: Start date of report period
+            end_date: End date of report period
+            
+        Returns:
+            True if export successful, False otherwise
+        """
+        if not EXCEL_SUPPORT:
+            logger.error("openpyxl library not available")
+            return False
+        
+        try:
+            wb = Workbook()
+            ws = wb.active
+            ws.title = self.t("reports")
+            
+            # Define styles
+            font_name = 'Vazir'
+            
+            title_font = Font(name=font_name, size=18, bold=True, color='FFFFFF')
+            title_fill = PatternFill(start_color='2c3e50', end_color='2c3e50', fill_type='solid')
+            
+            heading_font = Font(name=font_name, size=14, bold=True, color='FFFFFF')
+            heading_fill = PatternFill(start_color='34495e', end_color='34495e', fill_type='solid')
+            
+            header_font = Font(name=font_name, size=11, bold=True, color='FFFFFF')
+            header_fill = PatternFill(start_color='34495e', end_color='34495e', fill_type='solid')
+            
+            label_font = Font(name=font_name, size=10, bold=True)
+            label_fill = PatternFill(start_color='ecf0f1', end_color='ecf0f1', fill_type='solid')
+            
+            summary_font = Font(name=font_name, size=11, bold=True, color='FFFFFF')
+            summary_fill = PatternFill(start_color='3498db', end_color='3498db', fill_type='solid')
+            
+            data_font = Font(name=font_name, size=10)
+            number_font = Font(name=font_name, size=10, bold=True, color='1a1a1a')
+            
+            rtl_alignment = Alignment(horizontal='right', vertical='center', text_rotation=0)
+            center_alignment = Alignment(horizontal='center', vertical='center')
+            
+            thin_border = Border(
+                left=Side(style='thin', color='CCCCCC'),
+                right=Side(style='thin', color='CCCCCC'),
+                top=Side(style='thin', color='CCCCCC'),
+                bottom=Side(style='thin', color='CCCCCC')
+            )
+            
+            row = 1
+            
+            # Title
+            ws.merge_cells(f'A{row}:B{row}')
+            title_cell = ws[f'A{row}']
+            title_cell.value = self.t("reports")
+            title_cell.font = title_font
+            title_cell.fill = title_fill
+            title_cell.alignment = center_alignment
+            row += 2
+            
+            # User information
+            user_info = [
+                [self._prepare_rtl_text(user.get('username', 'N/A'), reshape=True), self.t("username") + ":"],
+                [self._prepare_rtl_text(format_date_for_display(start_date), reshape=True), self.t("reports_date_from") + ":"],
+                [self._prepare_rtl_text(format_date_for_display(end_date), reshape=True), self.t("reports_date_to") + ":"],
+                [str(len(stress_logs) + len(anxiety_results)), "تعداد رکوردها:"]
+            ]
+            
+            for info_row in user_info:
+                value_cell = ws[f'A{row}']
+                label_cell = ws[f'B{row}']
+                
+                value_cell.value = info_row[0]
+                value_cell.font = data_font
+                value_cell.alignment = rtl_alignment
+                value_cell.border = thin_border
+                
+                label_cell.value = info_row[1]
+                label_cell.font = label_font
+                label_cell.fill = label_fill
+                label_cell.alignment = rtl_alignment
+                label_cell.border = thin_border
+                row += 1
+            
+            row += 1
+            
+            # Stress logs section
+            if stress_logs:
+                # Summary statistics for stress
+                avg_stress = sum(log.get('stress_level', 0) for log in stress_logs) / len(stress_logs)
+                total_sleep = sum(log.get('sleep_hours', 0) or 0 for log in stress_logs)
+                avg_sleep = total_sleep / len(stress_logs) if stress_logs else 0
+                total_activity = sum(log.get('physical_activity', 0) or 0 for log in stress_logs)
+                avg_activity = total_activity / len(stress_logs) if stress_logs else 0
+                
+                summary_data = [
+                    [f"{avg_stress:.2f}/10", self.t("stress_level") + " " + self.t("weekly_average") + ":"],
+                    [f"{avg_sleep:.2f}", self.t("sleep_hours") + " " + self.t("weekly_average") + ":"],
+                    [f"{avg_activity:.2f} " + self.t("minutes"), self.t("physical_activity") + " " + self.t("weekly_average") + ":"]
+                ]
+                
+                for summary_row in summary_data:
+                    value_cell = ws[f'A{row}']
+                    label_cell = ws[f'B{row}']
+                    
+                    value_cell.value = summary_row[0]
+                    value_cell.font = number_font
+                    value_cell.fill = PatternFill(start_color='FFFFFF', end_color='FFFFFF', fill_type='solid')
+                    value_cell.alignment = rtl_alignment
+                    value_cell.border = thin_border
+                    
+                    label_cell.value = summary_row[1]
+                    label_cell.font = summary_font
+                    label_cell.fill = summary_fill
+                    label_cell.alignment = rtl_alignment
+                    label_cell.border = thin_border
+                    row += 1
+                
+                row += 1
+                
+                # Stress logs table heading
+                ws.merge_cells(f'A{row}:E{row}')
+                table_heading = ws[f'A{row}']
+                table_heading.value = self.t("stress_history")
+                table_heading.font = heading_font
+                table_heading.fill = heading_fill
+                table_heading.alignment = center_alignment
+                row += 1
+                
+                # Stress table headers
+                headers = [
+                    self.t("notes"),
+                    self.t("physical_activity"),
+                    self.t("sleep_hours"),
+                    self.t("stress_level"),
+                    self.t("date")
+                ]
+                
+                for col_idx, header in enumerate(headers, start=1):
+                    cell = ws.cell(row=row, column=col_idx)
+                    cell.value = header
+                    cell.font = header_font
+                    cell.fill = header_fill
+                    cell.alignment = center_alignment
+                    cell.border = thin_border
+                
+                row += 1
+                
+                # Stress table data
+                for log in stress_logs:
+                    log_date = log.get('date', '')
+                    date_str = format_date_for_display(log_date)
+                    
+                    stress_level = log.get('stress_level', '')
+                    sleep_hours = log.get('sleep_hours', '') if log.get('sleep_hours') else '-'
+                    physical_activity = log.get('physical_activity', '') if log.get('physical_activity') else '-'
+                    notes = str(log.get('notes', '')) if log.get('notes') else '-'
+                    
+                    row_data = [
+                        self._prepare_rtl_text(notes, reshape=True),
+                        physical_activity if physical_activity != '-' else '-',
+                        sleep_hours if sleep_hours != '-' else '-',
+                        stress_level,
+                        self._prepare_rtl_text(date_str, reshape=True)
+                    ]
+                    
+                    for col_idx, value in enumerate(row_data, start=1):
+                        cell = ws.cell(row=row, column=col_idx)
+                        cell.value = value
+                        
+                        if isinstance(value, (int, float)) or (isinstance(value, str) and value.replace('.', '').replace('-', '').isdigit()):
+                            cell.font = number_font
+                        else:
+                            cell.font = data_font
+                        
+                        if row % 2 == 0:
+                            cell.fill = PatternFill(start_color='FFFFFF', end_color='FFFFFF', fill_type='solid')
+                        else:
+                            cell.fill = PatternFill(start_color='f8f9fa', end_color='f8f9fa', fill_type='solid')
+                        
+                        cell.alignment = rtl_alignment
+                        cell.border = thin_border
+                    
+                    row += 1
+                
+                row += 2
+            
+            # Anxiety results section
+            if anxiety_results:
+                # Summary statistics for anxiety
+                avg_score = sum(result.get('score', 0) for result in anxiety_results) / len(anxiety_results)
+                avg_percentage = sum(result.get('percentage', 0) for result in anxiety_results) / len(anxiety_results)
+                
+                summary_data = [
+                    [f"{avg_score:.2f}", self.t("score") + " " + self.t("weekly_average") + ":"],
+                    [f"{avg_percentage:.2f}%", self.t("percentage") + " " + self.t("weekly_average") + ":"]
+                ]
+                
+                for summary_row in summary_data:
+                    value_cell = ws[f'A{row}']
+                    label_cell = ws[f'B{row}']
+                    
+                    value_cell.value = summary_row[0]
+                    value_cell.font = number_font
+                    value_cell.fill = PatternFill(start_color='FFFFFF', end_color='FFFFFF', fill_type='solid')
+                    value_cell.alignment = rtl_alignment
+                    value_cell.border = thin_border
+                    
+                    label_cell.value = summary_row[1]
+                    label_cell.font = summary_font
+                    label_cell.fill = summary_fill
+                    label_cell.alignment = rtl_alignment
+                    label_cell.border = thin_border
+                    row += 1
+                
+                row += 1
+                
+                # Anxiety results table heading
+                ws.merge_cells(f'A{row}:F{row}')
+                table_heading = ws[f'A{row}']
+                table_heading.value = self.t("anxiety_history")
+                table_heading.font = heading_font
+                table_heading.fill = heading_fill
+                table_heading.alignment = center_alignment
+                row += 1
+                
+                # Anxiety table headers
+                headers = [
+                    self.t("interpretation"),
+                    self.t("percentage"),
+                    self.t("max_score"),
+                    self.t("score"),
+                    self.t("test_name"),
+                    self.t("date")
+                ]
+                
+                for col_idx, header in enumerate(headers, start=1):
+                    cell = ws.cell(row=row, column=col_idx)
+                    cell.value = header
+                    cell.font = header_font
+                    cell.fill = header_fill
+                    cell.alignment = center_alignment
+                    cell.border = thin_border
+                
+                row += 1
+                
+                # Anxiety table data
+                for result in anxiety_results:
+                    result_date = result.get('date', '')
+                    date_str = format_date_for_display(result_date)
+                    
+                    test_name = str(result.get('test_name', ''))
+                    score = result.get('score', '')
+                    max_score = result.get('max_score', '')
+                    percentage = f"{result.get('percentage', 0):.2f}%"
+                    interpretation = str(result.get('interpretation', '')) if result.get('interpretation') else '-'
+                    
+                    row_data = [
+                        self._prepare_rtl_text(interpretation, reshape=True),
+                        percentage,
+                        max_score,
+                        score,
+                        self._prepare_rtl_text(test_name, reshape=True),
+                        self._prepare_rtl_text(date_str, reshape=True)
+                    ]
+                    
+                    for col_idx, value in enumerate(row_data, start=1):
+                        cell = ws.cell(row=row, column=col_idx)
+                        cell.value = value
+                        
+                        if isinstance(value, (int, float)) or (isinstance(value, str) and value.replace('.', '').replace('-', '').replace('%', '').isdigit()):
+                            cell.font = number_font
+                        else:
+                            cell.font = data_font
+                        
+                        if row % 2 == 0:
+                            cell.fill = PatternFill(start_color='FFFFFF', end_color='FFFFFF', fill_type='solid')
+                        else:
+                            cell.fill = PatternFill(start_color='f8f9fa', end_color='f8f9fa', fill_type='solid')
+                        
+                        cell.alignment = rtl_alignment
+                        cell.border = thin_border
+                    
+                    row += 1
+            
+            # Set column widths
+            ws.column_dimensions['A'].width = 25
+            ws.column_dimensions['B'].width = 18
+            ws.column_dimensions['C'].width = 15
+            ws.column_dimensions['D'].width = 12
+            ws.column_dimensions['E'].width = 15
+            ws.column_dimensions['F'].width = 20
+            
+            # Set sheet direction to RTL
+            ws.sheet_view.rightToLeft = True
+            
+            # Save workbook
+            wb.save(str(file_path))
+            logger.info(f"Combined Excel report exported successfully to: {file_path}")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error exporting combined Excel report: {e}", exc_info=True)
+            return False
 

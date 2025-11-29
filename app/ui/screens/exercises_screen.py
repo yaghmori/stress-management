@@ -268,7 +268,6 @@ class ExercisesScreen(QWidget):
         self.filter_combo.addItem(self.t("exercise_type_breathing"), EXERCISE_TYPE_BREATHING)
         self.filter_combo.addItem(self.t("exercise_type_meditation"), EXERCISE_TYPE_MEDITATION)
         self.filter_combo.addItem(self.t("exercise_type_guided_relaxation"), EXERCISE_TYPE_GUIDED_RELAXATION)
-        self.filter_combo.addItem(self.t("exercise_type_music_therapy"), EXERCISE_TYPE_MUSIC_THERAPY)
         self.filter_combo.currentIndexChanged.connect(self.refresh)
         header_layout.addWidget(self.filter_combo)
         

@@ -159,7 +159,7 @@ class MainWindow(QMainWindow):
         
         # Reports
         self.reports_screen = ReportsScreen(
-            self.user, self.translation_manager, self.stress_service
+            self.user, self.translation_manager, self.stress_service, self.anxiety_service
         )
         self.stacked_widget.addWidget(self.reports_screen)
     

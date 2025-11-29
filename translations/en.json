@@ -21,6 +21,7 @@
   "sessions": "Sessions",
   "anxiety_test": "Anxiety Test",
   "anxiety_test_history": "Anxiety Test History",
+  "anxiety_history": "Anxiety History",
   "reports": "Reports",
   
   "welcome": "Welcome",
@@ -106,6 +107,8 @@
   "anxiety_test_instructions": "Please answer the questions below based on your feelings in the last two weeks.",
   "questions": "Questions",
   "max_score": "Max Score",
+  "score": "Score",
+  "test_name": "Test Name",
   "log_stress": "Log Stress",
   "stress_log_instructions": "Select your stress level to quickly log your stress. You can add additional details in the dialog.",
   "anxiety_question_0": "Never",
@@ -224,6 +227,7 @@
   "info_title": "Info",
   "anxiety": "Anxiety",
   "stress": "Stress",
-  "data": "Data"
+  "data": "Data",
+  "anxiety_warning_message": "Attention: The average of your last 3 anxiety test results is {average}, which is higher than normal. It is recommended to consult with a mental health professional and perform relaxation exercises."
 }
 

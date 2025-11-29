@@ -1,176 +1,24 @@
-2025-11-16 23:06:38,721 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-16 23:06:38,824 - app.data.database - INFO - Database schema created successfully
-2025-11-16 23:07:08,643 - app.data.repositories.user_repository - INFO - User created: ehsan (ID: 2)
-2025-11-16 23:07:08,643 - app.services.user_service - INFO - User registered: ehsan (ID: 2)
-2025-11-16 23:07:16,141 - app.services.user_service - INFO - User authenticated: ehsan
-2025-11-16 23:09:02,107 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-16 23:09:02,107 - app.data.database - INFO - Database schema created successfully
-2025-11-16 23:09:15,159 - app.services.user_service - INFO - User authenticated: ehsan
-2025-11-16 23:09:32,274 - app.data.repositories.stress_repository - INFO - Stress log created: User 2, Level 5
-2025-11-16 23:17:04,352 - __main__ - INFO - Starting database seeding...
-2025-11-16 23:17:04,352 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-16 23:17:04,357 - app.data.database - INFO - Database schema created successfully
-2025-11-16 23:17:04,362 - __main__ - INFO - Seeded 8 exercises
-2025-11-16 23:17:04,362 - __main__ - INFO - Seeded 10 PSS10 questions
-2025-11-16 23:17:04,362 - __main__ - INFO - Seeded 5 PSS5 questions
-2025-11-16 23:17:04,366 - __main__ - INFO - Database seeding completed successfully
-2025-11-16 23:17:04,366 - app.data.database - INFO - Database connection closed
-2025-11-16 23:19:20,805 - __main__ - INFO - Starting database seeding...
-2025-11-16 23:19:20,806 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-16 23:19:20,806 - app.data.database - INFO - Database schema created successfully
-2025-11-16 23:19:20,806 - __main__ - INFO - Exercises already exist, skipping seed
-2025-11-16 23:19:20,806 - __main__ - INFO - PSS10 questions already exist, skipping
-2025-11-16 23:19:20,807 - __main__ - INFO - PSS5 questions already exist, skipping
-2025-11-16 23:19:20,807 - __main__ - INFO - Database seeding completed successfully
-2025-11-16 23:19:20,807 - app.data.database - INFO - Database connection closed
-2025-11-16 23:19:42,324 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-16 23:19:42,325 - app.data.database - INFO - Database schema created successfully
-2025-11-16 23:19:47,053 - app.services.user_service - INFO - User authenticated: ehsan
-2025-11-16 23:20:03,156 - app.data.repositories.session_repository - INFO - Session created: User 2, Exercise 1
-2025-11-16 23:21:23,434 - app.data.repositories.session_repository - INFO - Session created: User 2, Exercise 1
-2025-11-16 23:22:14,201 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-16 23:22:14,201 - app.data.database - INFO - Database schema created successfully
-2025-11-16 23:22:18,500 - app.services.user_service - INFO - User authenticated: ehsan
-2025-11-16 23:26:47,617 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-16 23:26:47,626 - app.data.database - INFO - Database schema created successfully
-2025-11-16 23:26:51,635 - app.services.user_service - INFO - User authenticated: ehsan
-2025-11-16 23:36:10,246 - __main__ - INFO - Starting database seeding...
-2025-11-16 23:36:10,246 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-16 23:36:10,256 - app.data.database - INFO - Database schema created successfully
-2025-11-16 23:36:10,256 - __main__ - INFO - Exercises already exist, skipping seed
-2025-11-16 23:36:10,256 - __main__ - ERROR - Error during seeding: table anxiety_tests has no column named test_code
-2025-11-16 23:36:10,256 - app.data.database - INFO - Database connection closed
-2025-11-16 23:36:26,631 - __main__ - INFO - Starting database seeding...
-2025-11-16 23:36:26,632 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-16 23:36:26,664 - app.data.database - INFO - Database schema created successfully
-2025-11-16 23:36:26,665 - __main__ - INFO - Exercises already exist, skipping seed
-2025-11-16 23:36:26,665 - __main__ - INFO - Seeded PSS10 test with 10 questions
-2025-11-16 23:36:26,665 - __main__ - INFO - Seeded PSS5 test with 5 questions
-2025-11-16 23:36:26,668 - __main__ - INFO - Database seeding completed successfully
-2025-11-16 23:36:26,669 - app.data.database - INFO - Database connection closed
-2025-11-16 23:36:52,188 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-16 23:36:52,213 - app.data.database - INFO - Database schema created successfully
-2025-11-16 23:36:57,736 - app.services.user_service - INFO - User authenticated: ehsan
-2025-11-16 23:37:55,370 - __main__ - INFO - Starting database seeding...
-2025-11-16 23:37:55,371 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-16 23:37:55,396 - app.data.database - INFO - Database schema created successfully
-2025-11-16 23:37:55,397 - __main__ - INFO - Exercises already exist, skipping seed
-2025-11-16 23:37:55,397 - __main__ - INFO - Seeded PSS10 test with 10 questions
-2025-11-16 23:37:55,397 - __main__ - INFO - Seeded PSS5 test with 5 questions
-2025-11-16 23:37:55,402 - __main__ - INFO - Database seeding completed successfully
-2025-11-16 23:37:55,402 - app.data.database - INFO - Database connection closed
-2025-11-16 23:38:14,834 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-16 23:38:14,860 - app.data.database - INFO - Database schema created successfully
-2025-11-16 23:38:20,237 - app.services.user_service - WARNING - Authentication failed: User not found - test
-2025-11-16 23:38:24,801 - app.services.user_service - INFO - User authenticated: ehsan
-2025-11-16 23:39:30,674 - __main__ - INFO - Starting database seeding...
-2025-11-16 23:39:30,675 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-16 23:39:30,702 - app.data.database - INFO - Database schema created successfully
-2025-11-16 23:39:30,702 - __main__ - INFO - Exercises already exist, skipping seed
-2025-11-16 23:39:30,703 - __main__ - INFO - Seeded PSS10 test with 10 questions
-2025-11-16 23:39:30,703 - __main__ - INFO - Seeded PSS5 test with 5 questions
-2025-11-16 23:39:30,707 - __main__ - INFO - Database seeding completed successfully
-2025-11-16 23:39:30,707 - app.data.database - INFO - Database connection closed
-2025-11-16 23:39:44,502 - __main__ - INFO - Starting database seeding...
-2025-11-16 23:39:44,504 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-16 23:39:44,534 - app.data.database - INFO - Database schema created successfully
-2025-11-16 23:39:44,534 - __main__ - INFO - Exercises already exist, skipping seed
-2025-11-16 23:39:44,534 - __main__ - INFO - Current test count: 0
-2025-11-16 23:39:44,534 - __main__ - INFO - Seeded PSS10 test with 10 questions
-2025-11-16 23:39:44,535 - __main__ - INFO - Seeded PSS5 test with 5 questions
-2025-11-16 23:39:44,538 - __main__ - INFO - Database seeding completed successfully
-2025-11-16 23:39:44,538 - app.data.database - INFO - Database connection closed
-2025-11-16 23:40:03,590 - __main__ - INFO - Starting database seeding...
-2025-11-16 23:40:03,590 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-16 23:40:03,591 - app.data.database - INFO - Database schema created successfully
-2025-11-16 23:40:03,591 - __main__ - INFO - Exercises already exist, skipping seed
-2025-11-16 23:40:03,591 - __main__ - INFO - Current test count: 0
-2025-11-16 23:40:03,592 - __main__ - INFO - Seeded PSS10 test with 10 questions
-2025-11-16 23:40:03,592 - __main__ - INFO - Seeded PSS5 test with 5 questions
-2025-11-16 23:40:03,596 - __main__ - INFO - Database seeding completed successfully
-2025-11-16 23:40:03,597 - app.data.database - INFO - Database connection closed
-2025-11-16 23:42:59,740 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-16 23:42:59,741 - app.data.database - INFO - Database schema created successfully
-2025-11-16 23:43:10,306 - app.services.user_service - WARNING - Authentication failed: User not found - test
-2025-11-16 23:43:20,577 - app.data.repositories.user_repository - INFO - User created: test (ID: 3)
-2025-11-16 23:43:20,577 - app.services.user_service - INFO - User registered: test (ID: 3)
-2025-11-16 23:43:23,581 - app.services.user_service - INFO - User authenticated: test
-2025-11-16 23:44:19,993 - app.data.repositories.anxiety_repository - INFO - Test result created: User 3, Test PSS5, Score 6
-2025-11-16 23:45:23,831 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-16 23:45:23,832 - app.data.database - INFO - Database schema created successfully
-2025-11-16 23:45:28,198 - app.services.user_service - INFO - User authenticated: ehsan
-2025-11-16 23:46:16,768 - app.data.repositories.stress_repository - INFO - Stress log created: User 2, Level 7
-2025-11-16 23:54:42,074 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-16 23:54:42,074 - app.data.database - INFO - Database schema created successfully
-2025-11-16 23:54:46,757 - app.services.user_service - INFO - User authenticated: ehsan
-2025-11-16 23:55:21,958 - app.data.repositories.session_repository - INFO - Session created: User 2, Exercise 1
-2025-11-16 23:59:16,693 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-16 23:59:16,694 - app.data.database - INFO - Database schema created successfully
-2025-11-16 23:59:20,874 - app.services.user_service - INFO - User authenticated: ehsan
-2025-11-16 23:59:49,413 - app.data.repositories.stress_repository - INFO - Stress log created: User 2, Level 4
-2025-11-16 23:59:58,685 - app.data.repositories.session_repository - INFO - Session created: User 2, Exercise 3
-2025-11-17 00:00:24,330 - app.data.repositories.anxiety_repository - INFO - Test result created: User 2, Test PSS10, Score 9
-2025-11-17 00:01:45,171 - app.data.repositories.session_repository - INFO - Session created: User 2, Exercise 3
-2025-11-17 00:08:04,365 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-17 00:08:04,366 - app.data.database - INFO - Database schema created successfully
-2025-11-17 00:08:15,568 - app.services.user_service - INFO - User authenticated: ehsan
-2025-11-17 00:09:01,516 - app.data.repositories.stress_repository - INFO - Stress log created: User 2, Level 2
-2025-11-17 00:09:11,852 - app.data.repositories.stress_repository - INFO - Stress log created: User 2, Level 2
-2025-11-17 00:09:29,975 - app.data.repositories.session_repository - INFO - Session created: User 2, Exercise 8
-2025-11-17 00:11:47,624 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-17 00:11:47,624 - app.data.database - INFO - Database schema created successfully
-2025-11-17 00:11:51,402 - app.services.user_service - INFO - User authenticated: ehsan
-2025-11-17 00:15:47,315 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-17 00:15:47,317 - app.data.database - INFO - Database schema created successfully
-2025-11-17 00:15:52,495 - app.services.user_service - INFO - User authenticated: ehsan
-2025-11-17 00:21:32,011 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-17 00:21:32,013 - app.data.database - INFO - Database schema created successfully
-2025-11-17 00:21:41,309 - app.services.user_service - INFO - User authenticated: ehsan
-2025-11-17 00:23:28,232 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-17 00:23:28,232 - app.data.database - INFO - Database schema created successfully
-2025-11-17 00:23:38,253 - app.services.user_service - WARNING - Authentication failed: Invalid password - ehsan
-2025-11-17 00:23:39,805 - app.services.user_service - INFO - User authenticated: ehsan
-2025-11-17 00:23:54,573 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-17 00:23:54,573 - app.data.database - INFO - Database schema created successfully
-2025-11-17 00:23:58,301 - app.services.user_service - INFO - User authenticated: ehsan
-2025-11-17 00:24:29,004 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-17 00:24:29,004 - app.data.database - INFO - Database schema created successfully
-2025-11-17 00:24:33,372 - app.services.user_service - INFO - User authenticated: ehsan
-2025-11-17 00:29:56,392 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-17 00:29:56,392 - app.data.database - INFO - Database schema created successfully
-2025-11-17 00:30:03,684 - app.services.user_service - INFO - User authenticated: ehsan
-2025-11-17 00:32:11,441 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-17 00:32:11,441 - app.data.database - INFO - Database schema created successfully
-2025-11-17 00:32:15,524 - app.services.user_service - INFO - User authenticated: ehsan
-2025-11-25 21:04:54,372 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-25 21:04:54,375 - app.data.database - INFO - Database schema created successfully
-2025-11-25 21:05:02,585 - app.services.user_service - INFO - User authenticated: test
-2025-11-25 21:07:30,874 - app.data.repositories.stress_repository - INFO - Stress log created: User 3, Level 10
-2025-11-25 21:15:42,253 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-25 21:15:42,253 - app.data.database - INFO - Database schema created successfully
-2025-11-25 21:15:47,688 - app.services.user_service - INFO - User authenticated: test
-2025-11-25 21:16:03,490 - app.services.pdf_service - INFO - PDF report exported successfully to: C:\Users\yaghmori\Desktop\ttt.pdf
-2025-11-25 21:20:13,920 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-25 21:20:13,921 - app.data.database - INFO - Database schema created successfully
-2025-11-25 21:20:17,323 - app.services.user_service - INFO - User authenticated: test
-2025-11-25 21:20:28,411 - app.services.pdf_service - INFO - PDF report exported successfully to: C:\Users\yaghmori\Desktop\ttt.pdf
-2025-11-25 21:21:17,065 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-25 21:21:17,065 - app.data.database - INFO - Database schema created successfully
-2025-11-25 21:21:21,341 - app.services.user_service - INFO - User authenticated: test
-2025-11-25 21:21:54,773 - app.data.repositories.session_repository - INFO - Session created: User 3, Exercise 1
-2025-11-25 21:22:34,466 - app.data.repositories.session_repository - INFO - Session created: User 3, Exercise 1
-2025-11-25 21:22:51,734 - app.data.repositories.stress_repository - INFO - Stress log created: User 3, Level 2
-2025-11-25 21:23:43,000 - app.data.repositories.anxiety_repository - INFO - Test result created: User 3, Test PSS10, Score 13
-2025-11-25 21:25:55,507 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-25 21:25:55,508 - app.data.database - INFO - Database schema created successfully
-2025-11-25 21:25:58,450 - app.services.user_service - INFO - User authenticated: test
-2025-11-25 21:26:28,346 - app.services.excel_service - INFO - Excel report exported successfully to: C:\Users\yaghmori\Desktop\test.xlsx
-2025-11-25 21:26:49,946 - app.services.pdf_service - INFO - PDF report exported successfully to: C:\Users\yaghmori\Desktop\test.pdf
-2025-11-25 21:28:49,434 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-25 21:28:49,436 - app.data.database - INFO - Database schema created successfully
-2025-11-25 21:28:52,182 - app.services.user_service - INFO - User authenticated: test
-2025-11-25 21:29:02,327 - app.services.excel_service - INFO - Excel report exported successfully to: C:\Users\yaghmori\Desktop\test.xlsx
-2025-11-25 21:31:29,164 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
-2025-11-25 21:31:29,165 - app.data.database - INFO - Database schema created successfully
-2025-11-25 21:31:32,474 - app.services.user_service - INFO - User authenticated: test
-2025-11-25 21:31:42,674 - app.services.excel_service - INFO - Excel report exported successfully to: C:\Users\yaghmori\Desktop\test.xlsx
+2025-11-29 19:09:38,544 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
+2025-11-29 19:09:38,546 - app.data.database - INFO - Database schema created successfully
+2025-11-29 19:09:41,548 - app.services.user_service - INFO - User authenticated: test
+2025-11-29 19:10:01,293 - app.services.pdf_service - ERROR - Error exporting combined PDF report: [Errno 13] Permission denied: 'C:\\Users\\yaghmori\\Desktop\\ttt.pdf'
+Traceback (most recent call last):
+  File "G:\mehdi\app\services\pdf_service.py", line 613, in export_combined_report
+    doc.build(elements)
+  File "C:\Users\yaghmori\AppData\Roaming\Python\Python312\site-packages\reportlab\platypus\doctemplate.py", line 1322, in build
+    BaseDocTemplate.build(self,flowables, canvasmaker=canvasmaker)
+  File "C:\Users\yaghmori\AppData\Roaming\Python\Python312\site-packages\reportlab\platypus\doctemplate.py", line 1109, in build
+    self._endBuild()
+  File "C:\Users\yaghmori\AppData\Roaming\Python\Python312\site-packages\reportlab\platypus\doctemplate.py", line 1044, in _endBuild
+    if getattr(self,'_doSave',1): self.canv.save()
+                                  ^^^^^^^^^^^^^^^^
+  File "C:\Users\yaghmori\AppData\Roaming\Python\Python312\site-packages\reportlab\pdfgen\canvas.py", line 1301, in save
+    self._doc.SaveToFile(self._filename, self)
+  File "C:\Users\yaghmori\AppData\Roaming\Python\Python312\site-packages\reportlab\pdfbase\pdfdoc.py", line 208, in SaveToFile
+    f = open(filename, "wb")
+        ^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\yaghmori\\Desktop\\ttt.pdf'
+2025-11-29 19:10:49,250 - app.data.database - INFO - Connected to database: G:\mehdi\data\stress_management.db
+2025-11-29 19:10:49,251 - app.data.database - INFO - Database schema created successfully
+2025-11-29 19:10:53,732 - app.services.user_service - INFO - User authenticated: test
+2025-11-29 19:11:03,095 - app.services.pdf_service - INFO - Combined PDF report exported successfully to: C:\Users\yaghmori\Desktop\ttt.pdf

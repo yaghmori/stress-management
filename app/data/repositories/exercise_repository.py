@@ -82,8 +82,14 @@ class ExerciseRepository:
             query += " AND is_active = 1"
         
         if exercise_type:
-            query += " AND type = ?"
-            params.append(exercise_type)
+            # Map 'guided_relaxation' to also match 'relaxation' in database
+            # This handles legacy data where exercises were stored as 'relaxation'
+            if exercise_type == "guided_relaxation":
+                query += " AND (type = ? OR type = ?)"
+                params.extend(["guided_relaxation", "relaxation"])
+            else:
+                query += " AND type = ?"
+                params.append(exercise_type)
         
         query += " ORDER BY created_at DESC"
         
